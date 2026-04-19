@@ -3,16 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Legion Latein-Drill</title>
+<title>Circus Maximus – Latein-Drill</title>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@500;700&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
   font-family: 'Quicksand', Arial, sans-serif;
-  background: linear-gradient(180deg, #1a0a00 0%, #2a1508 30%, #1f1005 70%, #0f0800 100%);
+  background: linear-gradient(180deg, #180c00 0%, #2d1808 30%, #1f1205 70%, #100a00 100%);
   background-attachment: fixed;
-  color: #f5ebe0;
+  color: #f0e0c0;
   min-height: 100vh;
   overflow-x: hidden;
   -webkit-user-select: none;
@@ -40,7 +41,7 @@ body {
   font-family: 'Cinzel Decorative', 'Cinzel', Georgia, serif;
   font-size: clamp(1.8rem, 5.5vw, 3.2rem);
   font-weight: 900;
-  color: #d4a54a;
+  color: #c8a44a;
   text-shadow: 0 0 30px rgba(212,165,74,0.3), 0 4px 8px rgba(0,0,0,0.6);
   line-height: 1.2;
 }
@@ -58,12 +59,12 @@ body {
   font-size: clamp(3rem, 10vw, 6rem);
   line-height: 1;
   filter: drop-shadow(0 0 20px rgba(212,165,74,0.4));
-  animation: legionBounce 2s ease-in-out infinite;
+  animation: chariotBounce 2s ease-in-out infinite;
 }
 
-@keyframes legionBounce {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
+@keyframes chariotBounce {
+  0%, 100% { transform: translateY(0) rotate(-2deg); }
+  50% { transform: translateY(-10px) rotate(2deg); }
 }
 
 .start-buttons {
@@ -88,7 +89,7 @@ body {
 
 .btn-play {
   background: linear-gradient(135deg, #8b0000, #a52a2a);
-  color: #f5ebe0;
+  color: #f0e0c0;
   font-size: 1.2rem;
   box-shadow: 0 4px 15px rgba(139,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.15);
   border: 1px solid #c0392b;
@@ -100,7 +101,7 @@ body {
 
 .btn-edit {
   background: linear-gradient(135deg, #5d4037, #4a3228);
-  color: #f5ebe0;
+  color: #f0e0c0;
   font-size: 0.9rem;
   box-shadow: 0 4px 10px rgba(0,0,0,0.3);
 }
@@ -120,15 +121,15 @@ body {
   font-weight: 700;
   font-size: 0.85rem;
   padding: 8px 18px;
-  border: 2px solid #d4a54a;
+  border: 2px solid #c8a44a;
   background: transparent;
-  color: #d4a54a;
+  color: #c8a44a;
   border-radius: 20px;
   cursor: pointer;
   transition: all 0.2s;
 }
 .diff-btn.active, .diff-btn:hover {
-  background: #d4a54a;
+  background: #c8a44a;
   color: #1a0a00;
 }
 
@@ -150,13 +151,13 @@ body {
   font-family: 'Cinzel', Georgia, serif;
   font-weight: 700;
   font-size: 1.1rem;
-  color: #d4a54a;
+  color: #c8a44a;
 }
 
 .hud-progress {
   font-weight: 700;
   font-size: 0.9rem;
-  color: #d4a54a;
+  color: #c8a44a;
 }
 
 .hud-streak {
@@ -170,7 +171,8 @@ body {
   width: 100%;
   height: 130px;
   position: relative;
-  background: linear-gradient(0deg, #3a2a1a 0%, #2a1508 40%, #1a0a00 100%);
+  background: linear-gradient(0deg, #6a4a14 0%, #a07830 20%, #c4955a 50%, #d4a870 65%, #8b6034 80%, #4a2a08 100%);
+  border-bottom: 3px solid #6a4a20;
   overflow: hidden;
   flex-shrink: 0;
   border-bottom: 3px solid #5a3a20;
@@ -219,11 +221,11 @@ body {
   transition: left 0.5s ease;
   filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
 }
-.legion.marching { animation: legionMarch 0.4s ease-in-out infinite; }
+.legion.marching { animation: chariotGallop 0.35s ease-in-out infinite; }
 
-@keyframes legionMarch {
+@keyframes chariotGallop {
   0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-4px); }
+  50% { transform: translateY(-5px); }
 }
 
 /* ===== TIMER BAR ===== */
@@ -237,7 +239,7 @@ body {
 
 .timer-bar {
   height: 100%;
-  background: linear-gradient(90deg, #c0392b, #e67e22, #d4a54a);
+  background: linear-gradient(90deg, #c0392b, #e67e22, #c8a44a);
   transition: width 0.1s linear;
   border-radius: 0 4px 4px 0;
 }
@@ -269,7 +271,7 @@ body {
   font-family: 'Cinzel', Georgia, serif;
   font-weight: 700;
   font-size: 0.8rem;
-  color: #d4a54a;
+  color: #c8a44a;
   letter-spacing: 3px;
   opacity: 0.8;
 }
@@ -278,7 +280,7 @@ body {
   font-family: 'Cinzel', Georgia, serif;
   font-weight: 700;
   font-size: clamp(1.5rem, 5vw, 2.5rem);
-  color: #f5ebe0;
+  color: #f0e0c0;
   text-align: center;
   text-shadow: 0 2px 10px rgba(0,0,0,0.5);
   padding: 15px 30px;
@@ -309,7 +311,7 @@ body {
   padding: 16px 12px;
   border: 2px solid rgba(212,165,74,0.2);
   background: rgba(212,165,74,0.05);
-  color: #f5ebe0;
+  color: #f0e0c0;
   border-radius: 14px;
   cursor: pointer;
   transition: all 0.15s;
@@ -321,7 +323,7 @@ body {
 }
 
 .answer-btn:hover {
-  border-color: #d4a54a;
+  border-color: #c8a44a;
   background: rgba(212,165,74,0.15);
   transform: translateY(-2px);
   box-shadow: 0 4px 15px rgba(212,165,74,0.2);
@@ -373,7 +375,7 @@ body {
   100% { transform: translate(-50%, -60%) scale(1); opacity: 0; }
 }
 
-.feedback.good { color: #d4a54a; }
+.feedback.good { color: #c8a44a; }
 .feedback.bad { color: #e74c3c; }
 
 /* ===== RESULT SCREEN ===== */
@@ -399,7 +401,7 @@ body {
   font-weight: 900;
   font-size: clamp(1.5rem, 5vw, 2.5rem);
 }
-.result-title.win { color: #d4a54a; }
+.result-title.win { color: #c8a44a; }
 .result-title.lose { color: #e74c3c; }
 
 .result-stats {
@@ -418,7 +420,7 @@ body {
 }
 
 .stat-label { color: rgba(245,235,224,0.7); }
-.stat-value { font-weight: 700; color: #d4a54a; }
+.stat-value { font-weight: 700; color: #c8a44a; }
 
 .mistakes-list {
   text-align: left;
@@ -453,7 +455,7 @@ body {
   font-family: 'Cinzel', Georgia, serif;
   font-weight: 700;
   font-size: 1.3rem;
-  color: #d4a54a;
+  color: #c8a44a;
 }
 
 .editor-info {
@@ -488,7 +490,7 @@ body {
   font-family: 'Cinzel', Georgia, serif;
   font-weight: 700;
   font-size: 0.75rem;
-  color: #d4a54a;
+  color: #c8a44a;
   padding-bottom: 8px;
   border-bottom: 1px solid rgba(212,165,74,0.2);
   position: sticky;
@@ -503,12 +505,12 @@ body {
   padding: 8px 10px;
   background: rgba(212,165,74,0.08);
   border: 1px solid rgba(212,165,74,0.15);
-  color: #f5ebe0;
+  color: #f0e0c0;
   border-radius: 8px;
   outline: none;
   transition: border-color 0.2s;
 }
-.vocab-input:focus { border-color: #d4a54a; }
+.vocab-input:focus { border-color: #c8a44a; }
 .vocab-input::placeholder { color: rgba(245,235,224,0.3); }
 
 .delete-btn {
@@ -535,24 +537,24 @@ body {
 
 .btn-add {
   background: linear-gradient(135deg, #5a3a20, #3a2510);
-  color: #f5ebe0;
+  color: #f0e0c0;
 }
 .btn-save {
   background: linear-gradient(135deg, #8b0000, #a52a2a);
-  color: #f5ebe0;
+  color: #f0e0c0;
   border: 1px solid #c0392b;
 }
 .btn-export {
   background: linear-gradient(135deg, #2980b9, #1a5276);
-  color: #f5ebe0;
+  color: #f0e0c0;
 }
 .btn-import {
   background: linear-gradient(135deg, #6c3483, #512e5f);
-  color: #f5ebe0;
+  color: #f0e0c0;
 }
 .btn-back {
   background: rgba(245,235,224,0.1);
-  color: #f5ebe0;
+  color: #f0e0c0;
   border: 1px solid rgba(245,235,224,0.2);
 }
 
@@ -562,7 +564,7 @@ body {
   left: 50%;
   transform: translateX(-50%) translateY(100px);
   background: #8b0000;
-  color: #f5ebe0;
+  color: #f0e0c0;
   padding: 12px 24px;
   border-radius: 10px;
   font-weight: 700;
@@ -596,9 +598,10 @@ body {
   animation: fireGrow 0.6s ease-in-out infinite;
 }
 
-@keyframes fireGrow {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.15); }
+@keyframes crashShake {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(-15deg) scale(1.1); }
+  75% { transform: rotate(15deg) scale(1.1); }
 }
 
 .eaten-text {
@@ -618,16 +621,100 @@ body {
   .fire { font-size: 2.5rem; }
 }
 
-#importInput { display: none; }
+#importInput, #ocrInput { display: none; }
+
+.finish-line {
+  position: absolute;
+  bottom: 26px;
+  right: 8%;
+  font-size: 2.8rem;
+  animation: trophyGlow 1.5s ease-in-out infinite alternate;
+  z-index: 2;
+}
+@keyframes trophyGlow {
+  0% { filter: drop-shadow(0 0 10px rgba(200,164,74,0.5)); }
+  100% { filter: drop-shadow(0 0 25px rgba(200,164,74,0.9)); }
+}
+.crash-zone {
+  position: absolute;
+  bottom: 26px;
+  left: 2%;
+  font-size: 2.2rem;
+  z-index: 2;
+}
+
+.highscore-display {
+  font-family: 'Cinzel', Georgia, serif;
+  font-weight: 700;
+  font-size: clamp(0.85rem, 2.2vw, 1.1rem);
+  color: #c8a44a;
+  background: rgba(200,164,74,0.08);
+  border: 1px solid rgba(200,164,74,0.3);
+  border-radius: 20px;
+  padding: 8px 20px;
+}
+.highscore-display span { color: #e8c878; }
+
+.new-highscore-badge {
+  font-family: 'Cinzel Decorative', 'Cinzel', Georgia, serif;
+  font-size: clamp(0.9rem, 2.5vw, 1.2rem);
+  font-weight: 900;
+  color: #e8c878;
+  background: rgba(200,164,74,0.15);
+  border: 2px solid #c8a44a;
+  border-radius: 12px;
+  padding: 8px 20px;
+  animation: newHighscorePulse 0.5s ease-in-out 3;
+}
+@keyframes newHighscorePulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+
+.btn-ocr { background: linear-gradient(135deg, #1e6b1e, #145214); color: #f0e0c0; }
+
+.ocr-overlay {
+  position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.9);
+  z-index: 300;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 24px 16px;
+  gap: 14px;
+  overflow-y: auto;
+}
+.ocr-title {
+  font-family: 'Cinzel', Georgia, serif;
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: #c8a44a;
+  text-align: center;
+}
+.ocr-status { font-size: 0.95rem; color: rgba(240,224,192,0.8); text-align: center; }
+.ocr-preview-list {
+  width: 100%; max-width: 480px;
+  display: flex; flex-direction: column; gap: 6px;
+  max-height: 50vh; overflow-y: auto;
+}
+.ocr-pair-item {
+  display: flex; align-items: center; gap: 10px;
+  background: rgba(200,164,74,0.08);
+  border: 1px solid rgba(200,164,74,0.15);
+  border-radius: 8px; padding: 8px 12px; font-size: 0.9rem;
+}
+.ocr-pair-item input[type="checkbox"] { width: 18px; height: 18px; accent-color: #c8a44a; cursor: pointer; flex-shrink: 0; }
+.ocr-pair-item label { cursor: pointer; color: #f0e0c0; }
+.btn-ocr-confirm { background: linear-gradient(135deg, #27ae60, #1a8a48); color: #fff; border: none; }
+.btn-ocr-cancel { background: rgba(192,57,43,0.3); color: #e74c3c; border: 1px solid rgba(192,57,43,0.5); }
 </style>
 </head>
 <body>
 
 <!-- ===== START SCREEN ===== -->
 <div id="startScreen" class="screen active">
-  <div class="game-title">LEGION<br>LATEIN-DRILL</div>
-  <div class="game-subtitle">LERNE ODER MARSCHIERE INS FEUER!</div>
-  <div class="hero-emoji">&#x1F3DB;&#xFE0F;</div>
+  <div class="game-title">CIRCUS<br>MAXIMUS</div>
+  <div class="game-subtitle">LERNE ODER VERLIER DEN ANSCHLUSS!</div>
+  <div class="hero-emoji">🏇</div>
+  <div class="highscore-display" id="startHighscore">🏆 HIGHSCORE: <span>0</span></div>
   <div>
     <div style="font-size:0.85rem; color:rgba(245,235,224,0.6); margin-bottom:8px;">SCHWIERIGKEIT</div>
     <div class="difficulty-select">
@@ -637,11 +724,11 @@ body {
     </div>
   </div>
   <div class="start-buttons">
-    <button class="btn btn-play" onclick="startGame()">&#x2694;&#xFE0F; IN DIE SCHLACHT!</button>
+    <button class="btn btn-play" onclick="startGame()">🏁 AD VICTORIAM!</button>
     <button class="btn btn-edit" onclick="showEditor()">&#x1F4DD; VOKABELN BEARBEITEN</button>
   </div>
-  <div style="font-size:0.75rem; color:rgba(245,235,224,0.35); max-width:320px;">
-    &Uuml;bersetze die Vokabeln richtig, um die Legion zu retten! Fehler oder Zeitablauf &mdash; und sie marschiert n&auml;her ins Feuer...
+  <div style="font-size:0.75rem; color:rgba(240,224,192,0.35); max-width:320px;">
+    Übersetze die Vokabeln richtig, um dein Gespann voranzutreiben! Fehler oder Zeitablauf — und du verlierst den Anschluss...
   </div>
 </div>
 
@@ -654,12 +741,12 @@ body {
   </div>
 
   <div class="chase-container" id="chaseScene">
-    <div class="scene-item" style="left:15%; font-size:1.5rem;">&#x1F3FA;</div>
-    <div class="scene-item" style="left:35%; font-size:1.2rem;">&#x1F5FF;</div>
-    <div class="scene-item" style="left:55%; font-size:1.4rem;">&#x1F3DB;&#xFE0F;</div>
-    <div class="scene-item" style="left:70%; font-size:1.2rem;">&#x1F3FA;</div>
-    <div class="fire" id="fire">&#x1F525;</div>
-    <div class="legion marching" id="legion" style="left: 5%;">&#x1F6E1;&#xFE0F;&#x2694;&#xFE0F;</div>
+    <div class="scene-item" style="left:18%; font-size:1.4rem;">🏛️</div>
+    <div class="scene-item" style="left:40%; font-size:1.1rem;">🏺</div>
+    <div class="scene-item" style="left:60%; font-size:1.3rem;">🏛️</div>
+    <div class="crash-zone" id="crashZone">💥</div>
+    <div class="finish-line" id="finishLine">🏆</div>
+    <div class="legion marching" id="legion" style="left: 30%;">🏇</div>
     <div class="ground"><div class="ground-detail"></div></div>
   </div>
 
@@ -678,10 +765,11 @@ body {
 <div id="resultScreen" class="screen">
   <div class="result-emoji" id="resultEmoji"></div>
   <div class="result-title" id="resultTitle"></div>
+  <div id="newHighscoreBadge" style="display:none;" class="new-highscore-badge">🏆 NEUER HIGHSCORE!</div>
   <div class="result-stats" id="resultStats"></div>
   <div class="mistakes-list" id="mistakesList" style="display:none;"></div>
   <div class="start-buttons">
-    <button class="btn btn-play" onclick="startGame()">&#x1F504; NOCHMAL K&Auml;MPFEN</button>
+    <button class="btn btn-play" onclick="startGame()">🔄 NOCHMAL RENNEN</button>
     <button class="btn btn-edit btn-small" onclick="showEditor()">&#x1F4DD; VOKABELN BEARBEITEN</button>
     <button class="btn btn-back btn-small" onclick="showScreen('startScreen')">&#x2190; ZUR&Uuml;CK</button>
   </div>
@@ -702,14 +790,27 @@ body {
     <div id="vocabRows"></div>
   </div>
   <div class="editor-actions">
-    <button class="btn btn-add btn-small" onclick="addRow()">+ HINZUF&Uuml;GEN</button>
-    <button class="btn btn-export btn-small" onclick="exportVocab()">&#x1F4E4; EXPORTIEREN</button>
-    <button class="btn btn-import btn-small" onclick="document.getElementById('importInput').click()">&#x1F4E5; IMPORTIEREN</button>
+    <button class="btn btn-add btn-small" onclick="addRow()">+ HINZUFÜGEN</button>
+    <button class="btn btn-export btn-small" onclick="exportVocab()">📤 EXPORTIEREN</button>
+    <button class="btn btn-import btn-small" onclick="document.getElementById('importInput').click()">📥 IMPORTIEREN</button>
+    <button class="btn btn-ocr btn-small" onclick="document.getElementById('ocrInput').click()">📷 AUS BILD</button>
     <input type="file" id="importInput" accept=".json,.csv,.txt" onchange="importVocab(event)">
+    <input type="file" id="ocrInput" accept="image/*" onchange="importFromImage(event)">
   </div>
   <div class="editor-actions" style="margin-top:5px;">
     <button class="btn btn-save" onclick="saveAndBack()">&#x2705; SPEICHERN &amp; ZUR&Uuml;CK</button>
     <button class="btn btn-back btn-small" onclick="showScreen('startScreen')">&#x2190; ABBRECHEN</button>
+  </div>
+</div>
+
+<!-- ===== OCR OVERLAY ===== -->
+<div class="ocr-overlay" id="ocrOverlay">
+  <div class="ocr-title">📷 VOKABELN AUS BILD IMPORTIEREN</div>
+  <div class="ocr-status" id="ocrStatus"></div>
+  <div class="ocr-preview-list" id="ocrPreviewList"></div>
+  <div style="display:flex; gap:10px; flex-wrap:wrap; justify-content:center; margin-top:8px;">
+    <button class="btn btn-ocr-confirm btn-small" id="ocrConfirmBtn" onclick="confirmOcrImport()" style="display:none;">✅ IMPORTIEREN</button>
+    <button class="btn btn-ocr-cancel btn-small" onclick="cancelOcr()">✕ ABBRECHEN</button>
   </div>
 </div>
 
@@ -746,6 +847,8 @@ var vocab = [];
 var timePerQuestion = 10;
 var gameState = null;
 var timerInterval = null;
+var highscore = 0;
+var ocrPairs = [];
 
 // ===== SAFE STORAGE =====
 function storageGet(key) {
@@ -781,6 +884,19 @@ function init() {
       }
     }
   } catch(e) { /* ignore */ }
+  loadHighscore();
+}
+
+// ===== HIGHSCORE =====
+function loadHighscore() {
+  var saved = storageGet("legion_highscore");
+  if (saved) highscore = parseInt(saved, 10) || 0;
+  updateHighscoreDisplay();
+}
+
+function updateHighscoreDisplay() {
+  var el = document.getElementById("startHighscore");
+  if (el) el.innerHTML = "🏆 HIGHSCORE: <span>" + highscore + "</span>";
 }
 
 function saveVocab() {
@@ -833,9 +949,8 @@ function startGame() {
     wrong: 0,
     mistakes: [],
     timeLeft: timePerQuestion,
-    legionPos: 5,
-    firePos: 85,
-    burned: false
+    chariotPos: 30,
+    crashed: false
   };
 
   showScreen("gameScreen");
@@ -932,9 +1047,8 @@ function handleAnswer(selected, correct, btn) {
     gameState.streak++;
     if (gameState.streak > gameState.maxStreak) gameState.maxStreak = gameState.streak;
 
-    showFeedback(pickRandom(["RECTE!", "OPTIME!", "BENE!", "EUGE!", "VICTORIA!"]), "good");
-    // Legion retreats from fire
-    gameState.legionPos = Math.max(5, gameState.legionPos - 3);
+    showFeedback(pickRandom(["RECTE!", "OPTIME!", "BENE!", "VELOCIUS!", "EUGE!"]), "good");
+    gameState.chariotPos = Math.min(82, gameState.chariotPos + 3);
   } else {
     btn.classList.add("wrong");
     for (var i = 0; i < buttons.length; i++) {
@@ -946,17 +1060,16 @@ function handleAnswer(selected, correct, btn) {
     var q = gameState.questions[gameState.currentIndex];
     gameState.mistakes.push({ en: q.en, de: q.de });
 
-    showFeedback(pickRandom(["FALSUM!", "MALE!", "CAVE!"]), "bad");
-    // Legion marches closer to fire
-    gameState.legionPos = Math.min(gameState.firePos - 8, gameState.legionPos + 10);
+    showFeedback(pickRandom(["FALSUM!", "MALE!", "CAVE!", "TARDUS!"]), "bad");
+    gameState.chariotPos = Math.max(0, gameState.chariotPos - 10);
   }
 
   for (var j = 0; j < buttons.length; j++) { buttons[j].classList.add("disabled"); }
   updateStreakDisplay();
   updateChasePositions();
-  checkBurned();
+  checkCrashed();
 
-  if (!gameState.burned) {
+  if (!gameState.crashed) {
     setTimeout(function() {
       gameState.currentIndex++;
       nextQuestion();
@@ -979,13 +1092,13 @@ function handleTimeout() {
   gameState.streak = 0;
   gameState.mistakes.push({ en: q.en, de: q.de });
 
-  showFeedback("\u23F0 ZU LANGSAM!", "bad");
-  gameState.legionPos = Math.min(gameState.firePos - 8, gameState.legionPos + 14);
+  showFeedback("⏰ ZU LANGSAM!", "bad");
+  gameState.chariotPos = Math.max(0, gameState.chariotPos - 14);
   updateStreakDisplay();
   updateChasePositions();
-  checkBurned();
+  checkCrashed();
 
-  if (!gameState.burned) {
+  if (!gameState.crashed) {
     setTimeout(function() {
       gameState.currentIndex++;
       nextQuestion();
@@ -993,18 +1106,18 @@ function handleTimeout() {
   }
 }
 
-function checkBurned() {
-  if (gameState.legionPos >= gameState.firePos - 10) {
-    gameState.burned = true;
+function checkCrashed() {
+  if (gameState.chariotPos <= 5) {
+    gameState.crashed = true;
     clearInterval(timerInterval);
-    showBurnedAnimation();
+    showCrashAnimation();
   }
 }
 
-function showBurnedAnimation() {
+function showCrashAnimation() {
   var overlay = document.createElement("div");
   overlay.className = "eaten-overlay";
-  overlay.innerHTML = '<div class="eaten-scene">&#x1F525;&#x1F6E1;&#xFE0F;&#x1F525;</div><div class="eaten-text">IM FEUER GEFALLEN!</div>';
+  overlay.innerHTML = '<div class="eaten-scene">💥🏇💥</div><div class="eaten-text">IN PULVERE IACES!</div>';
   document.body.appendChild(overlay);
 
   setTimeout(function() {
@@ -1015,7 +1128,7 @@ function showBurnedAnimation() {
 
 function updateChasePositions() {
   if (!gameState) return;
-  document.getElementById("legion").style.left = gameState.legionPos + "%";
+  document.getElementById("legion").style.left = gameState.chariotPos + "%";
 }
 
 function updateStreakDisplay() {
@@ -1043,24 +1156,33 @@ function endGame(survived) {
   var pct = total > 0 ? Math.round((gameState.correct / total) * 100) : 0;
 
   if (survived && pct >= 70) {
-    document.getElementById("resultEmoji").textContent = "\uD83C\uDFC6";
+    document.getElementById("resultEmoji").textContent = "🏆";
     document.getElementById("resultTitle").textContent = "VICTORIA!";
     document.getElementById("resultTitle").className = "result-title win";
   } else if (survived) {
-    document.getElementById("resultEmoji").textContent = "\uD83D\uDE05";
-    document.getElementById("resultTitle").textContent = "KNAPP GERETTET!";
+    document.getElementById("resultEmoji").textContent = "😅";
+    document.getElementById("resultTitle").textContent = "KNAPP INS ZIEL!";
     document.getElementById("resultTitle").className = "result-title win";
   } else {
-    document.getElementById("resultEmoji").textContent = "\uD83D\uDD25";
-    document.getElementById("resultTitle").textContent = "NIEDERGANG!";
+    document.getElementById("resultEmoji").textContent = "💥";
+    document.getElementById("resultTitle").textContent = "IN PULVERE IACES!";
     document.getElementById("resultTitle").className = "result-title lose";
   }
 
+  var isNewHighscore = gameState.score > highscore;
+  if (isNewHighscore) {
+    highscore = gameState.score;
+    storageSet("legion_highscore", String(highscore));
+    updateHighscoreDisplay();
+  }
+  document.getElementById("newHighscoreBadge").style.display = isNewHighscore ? "block" : "none";
+
   document.getElementById("resultStats").innerHTML =
     '<div class="stat-row"><span class="stat-label">Punkte</span><span class="stat-value">' + gameState.score + '</span></div>' +
+    '<div class="stat-row"><span class="stat-label">Highscore</span><span class="stat-value">' + highscore + '</span></div>' +
     '<div class="stat-row"><span class="stat-label">Richtig</span><span class="stat-value">' + gameState.correct + ' / ' + total + '</span></div>' +
     '<div class="stat-row"><span class="stat-label">Quote</span><span class="stat-value">' + pct + '%</span></div>' +
-    '<div class="stat-row"><span class="stat-label">Beste Serie</span><span class="stat-value">\uD83D\uDD25 ' + gameState.maxStreak + '</span></div>';
+    '<div class="stat-row"><span class="stat-label">Beste Serie</span><span class="stat-value">🔥 ' + gameState.maxStreak + '</span></div>';
 
   var mistDiv = document.getElementById("mistakesList");
   if (gameState.mistakes.length > 0) {
@@ -1162,6 +1284,92 @@ function importVocab(event) {
   };
   reader.readAsText(file);
   event.target.value = "";
+}
+
+// ===== OCR IMPORT =====
+function importFromImage(event) {
+  var file = event.target.files[0];
+  event.target.value = "";
+  if (!file) return;
+  var overlay = document.getElementById("ocrOverlay");
+  var status = document.getElementById("ocrStatus");
+  var previewList = document.getElementById("ocrPreviewList");
+  var confirmBtn = document.getElementById("ocrConfirmBtn");
+  overlay.style.display = "flex";
+  status.textContent = "Lade Texterkennung...";
+  previewList.innerHTML = "";
+  confirmBtn.style.display = "none";
+  ocrPairs = [];
+  if (typeof Tesseract === "undefined") {
+    status.textContent = "Fehler: Texterkennung nicht geladen. Internetverbindung prüfen.";
+    return;
+  }
+  Tesseract.recognize(file, "eng+deu", {
+    logger: function(m) {
+      if (m.status === "recognizing text") {
+        status.textContent = "Erkenne Text... " + Math.round(m.progress * 100) + "%";
+      }
+    }
+  }).then(function(result) {
+    var pairs = parseOcrText(result.data.text);
+    ocrPairs = pairs;
+    if (pairs.length === 0) {
+      status.textContent = "Keine Paare erkannt. Format: 'Latein \u2013 Deutsch' oder Tab-getrennt.";
+      return;
+    }
+    status.textContent = pairs.length + " Vokabelpaare erkannt:";
+    previewList.innerHTML = "";
+    for (var i = 0; i < pairs.length; i++) {
+      var item = document.createElement("div");
+      item.className = "ocr-pair-item";
+      item.innerHTML = '<input type="checkbox" id="ocr_cb_' + i + '" checked>' +
+        '<label for="ocr_cb_' + i + '">' + escapeHtml(pairs[i].en) + ' \u2192 ' + escapeHtml(pairs[i].de) + '</label>';
+      previewList.appendChild(item);
+    }
+    confirmBtn.style.display = "block";
+  }).catch(function(err) {
+    status.textContent = "Fehler: " + (err.message || "Unbekannt");
+  });
+}
+
+function parseOcrText(text) {
+  var lines = text.split(/\r?\n/);
+  var pairs = [];
+  for (var i = 0; i < lines.length; i++) {
+    var line = lines[i].trim();
+    if (!line || line.length < 4) continue;
+    var en = null, de = null;
+    if (line.indexOf("\t") !== -1) {
+      var parts = line.split("\t").map(function(s) { return s.trim(); }).filter(Boolean);
+      if (parts.length >= 2) { en = parts[0]; de = parts[parts.length - 1]; }
+    }
+    if (!en) {
+      var m = line.match(/^(.+?)\s+[-\u2013\u2014]\s+(.+)$/);
+      if (m) { en = m[1].trim(); de = m[2].trim(); }
+    }
+    if (!en || !de) continue;
+    pairs.push({ en: en, de: de });
+  }
+  return pairs;
+}
+
+function confirmOcrImport() {
+  var added = 0;
+  for (var i = 0; i < ocrPairs.length; i++) {
+    var cb = document.getElementById("ocr_cb_" + i);
+    if (!cb || !cb.checked) continue;
+    vocab.push({ en: ocrPairs[i].en, de: ocrPairs[i].de });
+    added++;
+  }
+  saveVocab();
+  renderEditorRows();
+  cancelOcr();
+  showToast(added + " Vokabeln aus Bild importiert!");
+}
+
+function cancelOcr() {
+  document.getElementById("ocrOverlay").style.display = "none";
+  ocrPairs = [];
 }
 
 // ===== HELPERS =====
