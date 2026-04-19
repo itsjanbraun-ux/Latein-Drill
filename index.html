@@ -189,7 +189,12 @@ body {
   position: absolute;
   bottom: 0; left: 0; right: 0;
   height: 5px;
-  background: repeating-linear-gradient(90deg, #5a4530 0px, #5a4530 30px, #4a3520 30px, #4a3520 60px);
+  background: repeating-linear-gradient(90deg, #8a6a30 0px, #8a6a30 25px, #5a4010 25px, #5a4010 50px);
+  animation: trackScroll 0.35s linear infinite;
+}
+@keyframes trackScroll {
+  from { background-position: 0 0; }
+  to { background-position: -50px 0; }
 }
 
 .scene-item {
@@ -198,34 +203,91 @@ body {
   opacity: 0.5;
 }
 
-/* Fire at right side */
-.fire {
-  position: absolute;
-  bottom: 28px;
-  right: 5%;
-  font-size: 3rem;
-  animation: fireFlicker 0.3s ease-in-out infinite alternate;
-  filter: drop-shadow(0 0 20px rgba(255,100,0,0.6)) drop-shadow(0 0 40px rgba(255,50,0,0.3));
-}
-
-@keyframes fireFlicker {
-  0% { transform: scaleY(1) scaleX(1); }
-  100% { transform: scaleY(1.1) scaleX(0.95); }
-}
-
-/* Legion - marches from left toward fire on right */
+/* Chariot: horse + spinning wheel */
 .legion {
   position: absolute;
-  bottom: 28px;
-  font-size: 2.5rem;
+  bottom: 26px;
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
   transition: left 0.5s ease;
-  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+  z-index: 3;
 }
-.legion.marching { animation: chariotGallop 0.35s ease-in-out infinite; }
-
+.chariot-horse {
+  font-size: 2.5rem;
+  line-height: 1;
+  display: block;
+  filter: drop-shadow(0 2px 6px rgba(0,0,0,0.6));
+}
+.chariot-wheel {
+  width: 26px;
+  height: 26px;
+  border: 3px solid #c8a44a;
+  border-radius: 50%;
+  position: relative;
+  flex-shrink: 0;
+  margin-bottom: 7px;
+  background: rgba(200,164,74,0.12);
+  animation: wheelSpin 0.35s linear infinite;
+  box-shadow: 0 0 6px rgba(200,164,74,0.4);
+}
+.chariot-wheel::before {
+  content: '';
+  position: absolute;
+  top: 50%; left: 2px; right: 2px;
+  height: 2px;
+  background: #c8a44a;
+  transform: translateY(-50%);
+}
+.chariot-wheel::after {
+  content: '';
+  position: absolute;
+  left: 50%; top: 2px; bottom: 2px;
+  width: 2px;
+  background: #c8a44a;
+  transform: translateX(-50%);
+}
+@keyframes wheelSpin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+.legion.marching { animation: chariotGallop 0.3s ease-in-out infinite; }
 @keyframes chariotGallop {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-5px); }
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  35% { transform: translateY(-7px) rotate(-3deg); }
+  70% { transform: translateY(-3px) rotate(1deg); }
+}
+
+/* Speed flash on correct answer */
+.chase-speed { animation: speedPulse 0.4s ease-out; }
+@keyframes speedPulse {
+  0% { filter: brightness(1.5) saturate(1.4); transform: scaleX(1.01); }
+  100% { filter: brightness(1) saturate(1); transform: scaleX(1); }
+}
+
+/* Shake on wrong answer */
+.chase-shake { animation: chaseShake 0.4s ease-out; }
+@keyframes chaseShake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-7px); }
+  40% { transform: translateX(7px); }
+  60% { transform: translateX(-4px); }
+  80% { transform: translateX(4px); }
+}
+
+/* Dust particle */
+.dust-particle {
+  position: absolute;
+  width: 5px; height: 5px;
+  background: rgba(200,164,74,0.8);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 4;
+  animation: dustFloat 0.7s ease-out forwards;
+}
+@keyframes dustFloat {
+  0% { opacity: 0.9; transform: translate(0,0) scale(1); }
+  100% { opacity: 0; transform: translate(-28px,-18px) scale(2.5); }
 }
 
 /* ===== TIMER BAR ===== */
@@ -713,7 +775,7 @@ body {
 <div id="startScreen" class="screen active">
   <div class="game-title">CIRCUS<br>MAXIMUS</div>
   <div class="game-subtitle">LERNE ODER VERLIER DEN ANSCHLUSS!</div>
-  <div class="hero-emoji">🏇</div>
+  <div class="hero-emoji">🐎</div>
   <div class="highscore-display" id="startHighscore">🏆 HIGHSCORE: <span>0</span></div>
   <div>
     <div style="font-size:0.85rem; color:rgba(245,235,224,0.6); margin-bottom:8px;">SCHWIERIGKEIT</div>
@@ -746,7 +808,10 @@ body {
     <div class="scene-item" style="left:60%; font-size:1.3rem;">🏛️</div>
     <div class="crash-zone" id="crashZone">💥</div>
     <div class="finish-line" id="finishLine">🏆</div>
-    <div class="legion marching" id="legion" style="left: 30%;">🏇</div>
+    <div class="legion marching" id="legion" style="left: 30%;">
+      <div class="chariot-wheel"></div>
+      <span class="chariot-horse">🐎</span>
+    </div>
     <div class="ground"><div class="ground-detail"></div></div>
   </div>
 
@@ -1049,6 +1114,7 @@ function handleAnswer(selected, correct, btn) {
 
     showFeedback(pickRandom(["RECTE!", "OPTIME!", "BENE!", "VELOCIUS!", "EUGE!"]), "good");
     gameState.chariotPos = Math.min(82, gameState.chariotPos + 3);
+    triggerSceneEffect("speed");
   } else {
     btn.classList.add("wrong");
     for (var i = 0; i < buttons.length; i++) {
@@ -1062,6 +1128,8 @@ function handleAnswer(selected, correct, btn) {
 
     showFeedback(pickRandom(["FALSUM!", "MALE!", "CAVE!", "TARDUS!"]), "bad");
     gameState.chariotPos = Math.max(0, gameState.chariotPos - 10);
+    triggerSceneEffect("shake");
+    spawnDust(gameState.chariotPos);
   }
 
   for (var j = 0; j < buttons.length; j++) { buttons[j].classList.add("disabled"); }
@@ -1284,6 +1352,31 @@ function importVocab(event) {
   };
   reader.readAsText(file);
   event.target.value = "";
+}
+
+function triggerSceneEffect(type) {
+  var scene = document.getElementById("chaseScene");
+  var cls = type === "speed" ? "chase-speed" : "chase-shake";
+  scene.classList.remove("chase-speed", "chase-shake");
+  void scene.offsetWidth;
+  scene.classList.add(cls);
+  setTimeout(function() { scene.classList.remove(cls); }, 400);
+}
+
+function spawnDust(pos) {
+  var container = document.getElementById("chaseScene");
+  for (var i = 0; i < 4; i++) {
+    (function(idx) {
+      var d = document.createElement("div");
+      d.className = "dust-particle";
+      d.style.left = (pos + 2) + "%";
+      d.style.bottom = "28px";
+      d.style.animationDelay = (idx * 0.08) + "s";
+      d.style.transform = "translate(" + (Math.random() * 10 - 5) + "px, 0)";
+      container.appendChild(d);
+      setTimeout(function() { d.remove(); }, 800);
+    })(i);
+  }
 }
 
 // ===== OCR IMPORT =====
